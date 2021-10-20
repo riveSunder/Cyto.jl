@@ -8,4 +8,5 @@ Cellular Automata in Julia
 </div>
 
 Try out the demonstration of Lenia [Bert Chan 2019](https://arxiv.org/abs/1812.05433) using a mybinder notebook:
-[<img src="https://mybinder.org/badge_logo.svg"](https://mybinder.org/v2/gh/riveSunder/Cyto.jl/master?labpath=Lenia.ipynb)
+
+[<img src="https://mybinder.org/badge_logo.svg">  https://mybinder.org/v2/gh/riveSunder/Cyto.jl/master?labpath=Lenia.ipynb](https://mybinder.org/v2/gh/riveSunder/Cyto.jl/master?labpath=Lenia.ipynb)
