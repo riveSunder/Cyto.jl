@@ -65,6 +65,32 @@ function get_gaussian_conv(mu::Float64=0.0, sigma::Float64=0.1, radius::Int64=5)
     return gaussian_conv
 end
 
+function get_gaussian_mod_conv(mu::Float64=0.0, my_mod::Float64=1.0, sigma::Float64=0.1, radius::Int64=5)
+
+
+    rr = [sqrt( ((ii - radius - 1).^2 + (jj - radius - 1).^2)) 
+            for ii = 1:radius * 2 + 1, jj=1:radius * 2 + 1 ] ./ radius
+
+    gaussian_kernel = (rr .< radius) .* gaussian(rr .% my_mod, mu, sigma)
+
+    sum_kernel = sum(gaussian_kernel)
+    gaussian_kernel = gaussian_kernel ./ sum_kernel
+    gaussian_kernel = reshape(gaussian_kernel, 
+            (size(gaussian_kernel)[1], size(gaussian_kernel)[2], 1, 1))
+  
+    padding = radius 
+
+    function gaussian_conv(grid)
+
+        grid = circular_pad(grid[:,:,1,1], padding)
+        grid = reshape(grid, (size(grid)[1], size(grid)[2], 1, 1))
+        conv_grid = NNlib.conv(grid, gaussian_kernel, pad=0)
+
+        return conv_grid
+    end
+
+    return gaussian_conv
+end
 function fun_neighborhood(universe::FloatUniverse, neighborhood_fun)
     
     neighborhood_grid = neighborhood_fun(universe.grid)
